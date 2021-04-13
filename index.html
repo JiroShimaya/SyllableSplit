@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>KanaCorrespondance</title>
+  </head>
+  <body>
+    <div><input id="input" value="hello"></div>
+    <div><button id="button" disabled>ロード中</button></div>
+    <div id="result"></div>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/syllable_split.js"></script>
+  <script>
+  let start = async function(){
+	let input = $("#input");
+	let button = $("#button");  
+	let result = $("#result");
+    
+    button.prop("disabled",false);
+    button.html("実行");
+    
+    button.click(()=>{
+      let text = input.val();
+      if(text == "") return;
+      let formatted = formatText(text);
+      let splitted_text = syllableSplit(formatted);
+      
+      result_text = [
+    	  "raw: "+text,
+    	  "formatted: "+formatted,
+    	  "splitted:"+ JSON.stringify(splitted_text)
+      ].join("<br>");
+      result.html(result_text);
+
+      input.val("");
+    });
+  };
+  start();
+  
+  </script>
+</html>
